@@ -72,6 +72,7 @@ class Lexer(object):
         "undef": Keyword("UNDEF", "UNDEF", EXPR_FNAME),
         "next": Keyword("NEXT", "NEXT", EXPR_MID),
         "break": Keyword("BREAK", "BREAK", EXPR_MID),
+        "snapshot": Keyword("SNAPSHOT", "SNAPSHOT", EXPR_MID),
     }
 
     def __init__(self, source, initial_lineno, symtable):

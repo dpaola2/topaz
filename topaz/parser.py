@@ -216,6 +216,9 @@ class Parser(object):
     def new_return(self, box):
         return BoxAST(ast.Return(self._array_or_node(box)))
 
+    def new_snapshot(self, box):
+        return BoxAST(ast.Snapshot(self._array_or_node(box)))
+
     def new_next(self, box):
         return BoxAST(ast.Next(self._array_or_node(box)))
 
@@ -330,7 +333,7 @@ class Parser(object):
     pg = ParserGenerator([
         "CLASS", "MODULE", "DEF", "UNDEF", "BEGIN", "RESCUE", "ENSURE", "END",
         "IF", "UNLESS", "THEN", "ELSIF", "ELSE", "CASE", "WHEN", "WHILE",
-        "UNTIL", "FOR", "BREAK", "NEXT", "REDO", "RETRY", "IN", "DO",
+        "UNTIL", "FOR", "BREAK", "SNAPSHOT", "NEXT", "REDO", "RETRY", "IN", "DO",
         "DO_COND", "DO_BLOCK", "RETURN", "YIELD", "SUPER", "SELF", "NIL",
         "TRUE", "FALSE", "AND", "OR", "NOT", "IF_MOD", "UNLESS_MOD",
         "WHILE_MOD", "UNTIL_MOD", "RESCUE_MOD", "ALIAS", "DEFINED",
@@ -789,6 +792,10 @@ class Parser(object):
     @pg.production("command : NEXT call_args")
     def command_call_next(self, p):
         return self.new_next(p[1])
+
+    @pg.production("command : SNAPSHOT call_args")
+    def command_call_snapshot(self, p):
+        return self.new_snapshot(p[1])
 
     @pg.production("mlhs : mlhs_basic")
     def mlhs(self, p):

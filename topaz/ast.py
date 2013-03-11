@@ -154,6 +154,14 @@ class Break(BaseStatement):
             raise NotImplementedError
 
 
+class Snapshot(BaseStatement):
+    def __init__(self, expr):
+        self.expr = expr
+
+    def compile(self, ctx):
+        self.expr.compile(ctx)
+        ctx.emit(consts.SNAPSHOT)
+
 class TryExcept(Node):
     def __init__(self, body, except_handlers, else_body):
         self.body = body

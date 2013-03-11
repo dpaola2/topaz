@@ -721,6 +721,9 @@ class Interpreter(object):
         unroller = RaiseBreakValue(frame.parent_interp, w_value)
         return block.handle(space, frame, unroller)
 
+    def SNAPSHOT(self, space, bytecode, frame, pc):
+        raise NotImplementedError
+
 
 class Return(Exception):
     _immutable_fields_ = ["w_value"]
